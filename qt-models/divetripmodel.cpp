@@ -435,7 +435,11 @@ bool DiveTripModelBase::setData(const QModelIndex &index, const QVariant &value,
 		if (dive->number == v)
 			return false;
 	}
+#if defined(SUBSURFACE_MOBILE)
+	d->number = v;
+#else
 	Command::editNumber(v, d);
+#endif
 	return true;
 }
 
@@ -522,7 +526,7 @@ void processRangesZip(Vector1 &items1, Vector2 &items2, Predicate cond, Action a
 			return 1;
 		      },
 		      [&](Vector1 &v1, int from, int to) { // Action
-		      	return action(v1, items2, from, to, actItem);
+			return action(v1, items2, from, to, actItem);
 		      });
 }
 
